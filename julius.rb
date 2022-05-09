@@ -1,23 +1,23 @@
 def caesar_cipher(text, shift = 0)
   ascii = text.bytes # short conversion
 
-  if shift < 0
-    shift = 26 - (shift.abs % 26)
+  if shift.negative?
+    shift = 26 - (shift.abs % 26) # convert negative shift to positive equivalent
   end
 
-  ascii.map! do |n| #destructive for ease of working
-    unless n.between?(65, 122) #only convert characters
+  ascii.map! do |n| # destructive for ease of working
+    unless n.between?(65, 122) # only convert characters
       n
     else
-      if (n < 91 && (n + shift) >= 91) || (n < 123 && (n + shift) >= 123) #if characters overflow correct for this
-      n - 26 + shift
+      if (n < 91 && (n + shift) >= 91) || (n < 123 && (n + shift) >= 123) # if characters overflow correct for this
+        n - 26 + shift
       else
-      n + shift
+        n + shift
       end
     end
   end
 
-  new_text = ascii.map! { |n| n.chr }.join #create new ciphered string
+  new_text = ascii.map! { |n| n.chr }.join # create new ciphered string
 
   puts "Original text was '#{text}'. Shifted by #{shift} letters, the ciphered text becomes '#{new_text}'"
 end
