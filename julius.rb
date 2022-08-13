@@ -1,9 +1,13 @@
+# frozen_string_literal: true
+
 def caesar_cipher(text, shift = 0)
   ascii = text.bytes # short conversion
 
-  if shift.negative?
-    shift = 26 - (shift.abs % 26) # convert negative shift to positive equivalent
-  end
+  shift = if shift.negative?
+            26 - (shift.abs % 26) # convert negative shift to positive equivalent
+          else
+            shift % 26
+          end
 
   ascii.map! do |n| # destructive for ease of working
     if n.between?(65, 122)
